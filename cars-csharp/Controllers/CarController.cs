@@ -7,12 +7,23 @@ namespace Cars.Controllers
     [Route("api/[controller]")]
     public class CarController : ControllerBase
     {
-        private static readonly Car corolla = new();
+
+        private static readonly List<Car> cars = new()
+        {
+            new(),
+            new() {LicensePlate = "1111"}
+        };
+
+        [HttpGet("GetAll")]
+        public ActionResult<Car> GetAll()
+        {
+            return Ok(cars);
+        }
 
         [HttpGet]
-        public ActionResult<Car> Get()
+        public ActionResult<Car> GetSingle()
         {
-            return Ok(corolla);
+            return Ok(cars[0]);
         }
     }
 }
