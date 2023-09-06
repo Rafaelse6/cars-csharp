@@ -25,5 +25,12 @@ namespace Cars.Controllers
         {
             return Ok(cars.FirstOrDefault(c => c.Id == id));
         }
+
+        [HttpPost]
+        public ActionResult<List<Car>> AddCar(Car newCar)
+        {
+            cars.Add(newCar);
+            return Ok(cars);
+        }
     }
 }
