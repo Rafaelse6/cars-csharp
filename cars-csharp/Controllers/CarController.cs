@@ -11,7 +11,7 @@ namespace Cars.Controllers
         private static readonly List<Car> cars = new()
         {
             new(),
-            new() {LicensePlate = "1111"}
+            new() {Id = 1, LicensePlate = "1111"}
         };
 
         [HttpGet("GetAll")]
@@ -20,10 +20,10 @@ namespace Cars.Controllers
             return Ok(cars);
         }
 
-        [HttpGet]
-        public ActionResult<Car> GetSingle()
+        [HttpGet("{id}")]
+        public ActionResult<Car> GetSingle(int id)
         {
-            return Ok(cars[0]);
+            return Ok(cars.FirstOrDefault(c => c.Id == id));
         }
     }
 }
