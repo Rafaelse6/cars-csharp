@@ -23,7 +23,11 @@ namespace Cars.Services.CarService
 
         public Car GetCarById(int id)
         {
-            return cars.FirstOrDefault(c => c.Id == id);
+            var car = cars.FirstOrDefault(c => c.Id == id);
+            if (car is not null)
+                return car;
+
+            throw new Exception("Car not found");
         }
     }
 }
