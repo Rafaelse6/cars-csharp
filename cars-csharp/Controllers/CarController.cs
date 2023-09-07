@@ -17,21 +17,21 @@ namespace Cars.Controllers
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<Car> GetAllCars()
+        public async Task<ActionResult<Car>> GetAllCars()
         {
-            return Ok(_carService.GetAllCars());
+            return Ok(await _carService.GetAllCars());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Car> GetSingle(int id)
+        public async Task<ActionResult<Car>> GetSingle(int id)
         {
-            return Ok(_carService.GetCarById(id));
+            return Ok(await _carService.GetCarById(id));
         }
 
         [HttpPost]
-        public ActionResult<List<Car>> AddCar(Car newCar)
+        public async Task<ActionResult<List<Car>>> AddCar(Car newCar)
         {
-            return Ok(_carService.AddCar(newCar));
+            return Ok(await _carService.AddCar(newCar));
         }
     }
 }
