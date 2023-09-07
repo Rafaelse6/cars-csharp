@@ -10,6 +10,7 @@ namespace Cars
         {
             CreateMap<Car, GetCarDTO>();
             CreateMap<AddCarDTO, Car>();
+            CreateMap<UpdateCarDTO, Car>();
         }
     }
 }

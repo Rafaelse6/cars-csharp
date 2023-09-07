@@ -51,6 +51,8 @@ namespace Cars.Services.CarService
             try
             {
                 var car = cars.FirstOrDefault(c => c.Id == updatedCar.Id) ?? throw new Exception($"Car with Id '{updatedCar.Id}' not found.");
+                _mapper.Map<Car>(updatedCar);
+
                 car.LicensePlate = updatedCar.LicensePlate;
                 car.Year = updatedCar.Year;
                 car.Brand = updatedCar.Brand;
