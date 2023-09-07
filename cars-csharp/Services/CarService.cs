@@ -1,3 +1,4 @@
+using Cars.DTO.Car;
 using Cars.Models;
 
 namespace Cars.Services.CarService
@@ -10,24 +11,24 @@ namespace Cars.Services.CarService
             new() {Id = 1, LicensePlate = "1111"}
         };
 
-        public async Task<ServiceResponse<List<Car>>> AddCar(Car newCar)
+        public async Task<ServiceResponse<List<GetCarDTO>>> AddCharacter(AddCarDTO newCharacter)
         {
-            var serviceResponse = new ServiceResponse<List<Car>>();
+            var serviceResponse = new ServiceResponse<List<GetCarDTO>>();
             cars.Add(newCar);
             serviceResponse.Data = cars;
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Car>>> GetAllCars()
+        public async Task<ServiceResponse<List<GetCarDTO>>> GetAllCars()
         {
-            var serviceResponse = new ServiceResponse<List<Car>>();
+            var serviceResponse = new ServiceResponse<List<GetCarDTO>>();
             serviceResponse.Data = cars;
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<Car>> GetCarById(int id)
+        public async Task<ServiceResponse<GetCarDTO>> GetCarById(int id)
         {
-            var serviceResponse = new ServiceResponse<Car>();
+            var serviceResponse = new ServiceResponse<GetCarDTO>();
             var car = cars.FirstOrDefault(c => c.Id == id);
             serviceResponse.Data = car;
             return serviceResponse;

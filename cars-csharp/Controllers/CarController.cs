@@ -1,3 +1,4 @@
+using Cars.DTO.Car;
 using Cars.Models;
 using Cars.Services.CarService;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,19 @@ namespace Cars.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<Car>>>> GetAllCars()
+        public async Task<ActionResult<ServiceResponse<List<GetCarDTO>>>> GetAllCars()
         {
             return Ok(await _carService.GetAllCars());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Car>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetCarDTO>>> GetSingle(int id)
         {
             return Ok(await _carService.GetCarById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Car>>>> AddCar(Car newCar)
+        public async Task<ActionResult<ServiceResponse<List<GetCarDTO>>>> AddCar(AddCarDTO newCar)
         {
             return Ok(await _carService.AddCar(newCar));
         }

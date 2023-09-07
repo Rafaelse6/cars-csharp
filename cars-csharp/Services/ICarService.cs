@@ -1,11 +1,12 @@
+using Cars.DTO.Car;
 using Cars.Models;
 
 namespace Cars.Services.CarService
 {
     public interface ICarService
     {
-        Task<ServiceResponse<List<Car>>> GetAllCars();
-        Task<ServiceResponse<Car>> GetCarById(int id);
-        Task<ServiceResponse<List<Car>>> AddCar(Car newCar);
+        Task<ServiceResponse<List<GetCarDTO>>> GetAllCars();
+        Task<ServiceResponse<GetCarDTO>> GetCarById(int id);
+        Task<ServiceResponse<List<GetCarDTO>>> AddCar(AddCarDTO newCar);
     }
 }
