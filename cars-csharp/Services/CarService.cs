@@ -10,24 +10,27 @@ namespace Cars.Services.CarService
             new() {Id = 1, LicensePlate = "1111"}
         };
 
-        public async Task<List<Car>> AddCar(Car newCar)
+        public async Task<ServiceResponse<List<Car>>> AddCar(Car newCar)
         {
+            var serviceResponse = new ServiceResponse<List<Car>>();
             cars.Add(newCar);
-            return cars;
+            serviceResponse.Data = cars;
+            return serviceResponse;
         }
 
-        public async Task<List<Car>> GetAllCars()
+        public async Task<ServiceResponse<List<Car>>> GetAllCars()
         {
-            return cars;
+            var serviceResponse = new ServiceResponse<List<Car>>();
+            serviceResponse.Data = cars;
+            return serviceResponse;
         }
 
-        public async Task<Car> GetCarById(int id)
+        public async Task<ServiceResponse<Car>> GetCarById(int id)
         {
+            var serviceResponse = new ServiceResponse<Car>();
             var car = cars.FirstOrDefault(c => c.Id == id);
-            if (car is not null)
-                return car;
-
-            throw new Exception("Car not found");
+            serviceResponse.Data = car;
+            return serviceResponse;
         }
     }
 }
