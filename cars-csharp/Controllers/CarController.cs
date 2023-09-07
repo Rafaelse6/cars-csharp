@@ -1,4 +1,5 @@
 using Cars.Models;
+using Cars.Services.CarService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cars.Controllers
@@ -8,29 +9,29 @@ namespace Cars.Controllers
     public class CarController : ControllerBase
     {
 
-        private static readonly List<Car> cars = new()
+        private readonly ICarService _carService;
+
+        public CarController(ICarService carService)
         {
-            new(),
-            new() {Id = 1, LicensePlate = "1111"}
-        };
+            _carService = carService;
+        }
 
         [HttpGet("GetAll")]
-        public ActionResult<Car> GetAll()
+        public ActionResult<Car> GetAllCars()
         {
-            return Ok(cars);
+            return Ok(_carService.GetAllCars());
         }
 
         [HttpGet("{id}")]
         public ActionResult<Car> GetSingle(int id)
         {
-            return Ok(cars.FirstOrDefault(c => c.Id == id));
+            return Ok(_carService.GetCarById(id));
         }
 
         [HttpPost]
         public ActionResult<List<Car>> AddCar(Car newCar)
         {
-            cars.Add(newCar);
-            return Ok(cars);
+            return Ok(_carService.AddCar(newCar));
         }
     }
 }
