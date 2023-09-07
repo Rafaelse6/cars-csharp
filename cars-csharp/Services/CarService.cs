@@ -51,13 +51,33 @@ namespace Cars.Services.CarService
             try
             {
                 var car = cars.FirstOrDefault(c => c.Id == updatedCar.Id) ?? throw new Exception($"Car with Id '{updatedCar.Id}' not found.");
-                _mapper.Map<Car>(updatedCar);
 
                 car.LicensePlate = updatedCar.LicensePlate;
                 car.Year = updatedCar.Year;
                 car.Brand = updatedCar.Brand;
 
                 serviceResponse.Data = _mapper.Map<GetCarDTO>(car);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetCarDTO>>> DeleteCar(int id)
+        {
+            var serviceResponse = new ServiceResponse<List<GetCarDTO>>();
+
+            try
+            {
+                var car = cars.FirstOrDefault(c => c.Id == id) ?? throw new Exception($"Car with Id '{id}' not found.");
+
+                cars.Remove(car);
+
+                serviceResponse.Data = cars.Select(c => _mapper.Map<GetCarDTO>(c)).ToList();
             }
             catch (Exception ex)
             {

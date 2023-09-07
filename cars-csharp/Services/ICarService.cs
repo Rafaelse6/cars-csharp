@@ -9,5 +9,6 @@ namespace Cars.Services.CarService
         Task<ServiceResponse<GetCarDTO>> GetCarById(int id);
         Task<ServiceResponse<List<GetCarDTO>>> AddCar(AddCarDTO newCar);
         Task<ServiceResponse<GetCarDTO>> UpdateCar(UpdateCarDTO updatedCar);
+        Task<ServiceResponse<List<GetCarDTO>>> DeleteCar(int id);
     }
 }

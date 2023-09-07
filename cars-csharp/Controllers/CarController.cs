@@ -47,5 +47,16 @@ namespace Cars.Controllers
 
             return Ok(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetCarDTO>>> DeleteCar(int id)
+        {
+            var response = await _carService.DeleteCar(id);
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
     }
 }
