@@ -1,15 +1,19 @@
 using AutoMapper;
+using Cars.Data;
 using Cars.DTO.Car;
 using Cars.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cars.Services.CarService
 {
     public class CarService : ICarService
     {
         private readonly IMapper _mapper;
+        private readonly DataContext _context;
 
-        public CarService(IMapper mapper)
+        public CarService(IMapper mapper, DataContext context)
         {
+            _context = context;
             _mapper = mapper;
         }
 
@@ -22,15 +26,16 @@ namespace Cars.Services.CarService
         public async Task<ServiceResponse<List<GetCarDTO>>> GetAllCars()
         {
             var serviceResponse = new ServiceResponse<List<GetCarDTO>>();
-            serviceResponse.Data = cars.Select(c => _mapper.Map<GetCarDTO>(c)).ToList();
+            var dbCar = await _context.Cars.ToListAsync();
+            serviceResponse.Data = dbCar.Select(c => _mapper.Map<GetCarDTO>(c)).ToList();
             return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetCarDTO>> GetCarById(int id)
         {
             var serviceResponse = new ServiceResponse<GetCarDTO>();
-            var car = cars.FirstOrDefault(c => c.Id == id);
-            serviceResponse.Data = _mapper.Map<GetCarDTO>(car);
+            var dbCar = await _context.Cars.FirstOrDefaultAsync(c => c.Id == id);
+            serviceResponse.Data = _mapper.Map<GetCarDTO>(dbCar);
             return serviceResponse;
         }
 
